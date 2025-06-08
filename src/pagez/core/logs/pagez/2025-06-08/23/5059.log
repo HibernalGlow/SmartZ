@@ -1,0 +1,31 @@
+2025-06-08 23:50:59 | 0:00:00.017337 | ℹ️ INFO     | pagez.core.logger_config:setup_logger:73 - 日志系统已初始化，应用名称: pagez
+2025-06-08 23:50:59 | 0:00:00.017939 | ℹ️ INFO     | __main__:main:41 - 开始测试解压 E:\2EHV\test 中的压缩包...
+2025-06-08 23:50:59 | 0:00:00.043887 | ℹ️ INFO     | pagez.core.api:test_extract_folder:241 - 找到 1 个压缩包文件
+2025-06-08 23:50:59 | 0:00:00.045341 | 🐞 DEBUG    | pagez.core.smart_detector:detect_codepage_from_filename:64 - 从文件名 '甘ふわセックスライフ.zip' 检测到语言: ja
+2025-06-08 23:50:59 | 0:00:00.045833 | 🐞 DEBUG    | pagez.core.smart_detector:detect_codepage_from_filename:68 - 为文件名 '甘ふわセックスライフ.zip' 选择代码页: 日文（Shift_JIS） (ID: 932)
+2025-06-08 23:50:59 | 0:00:00.087334 | 🐞 DEBUG    | pagez.core.smart_detector:detect_codepage_from_archive_content:174 - 压缩包内容语言统计: {'zh-cn': 736, 'zh-tw': 0, 'ja': 1, 'ko': 0, 'other': 0}
+2025-06-08 23:50:59 | 0:00:00.087508 | 🐞 DEBUG    | pagez.core.smart_detector:detect_codepage_from_archive_content:179 - 压缩包 '甘ふわセックスライフ.zip' 的主要语言: zh-cn
+2025-06-08 23:50:59 | 0:00:00.087561 | 🐞 DEBUG    | pagez.core.smart_detector:detect_codepage:253 - 文件名检测的代码页: 日文（Shift_JIS） (ID: 932)
+2025-06-08 23:50:59 | 0:00:00.087599 | 🐞 DEBUG    | pagez.core.smart_detector:detect_codepage:254 - 内容检测的代码页: 简体中文（GBK） (ID: 936)
+2025-06-08 23:50:59 | 0:00:00.088679 | 🐞 DEBUG    | pagez.core.smart_detector:test_extract_with_codepage:214 - 测试代码页 日文（Shift_JIS） 的命令: 7z e E:\2EHV\test\甘ふわセックスライフ.zip -oC:\Users\30902\AppData\Local\Temp\codepage_test_hqjyk0ev -aou -mcp=932 -y -i!*
+2025-06-08 23:51:04 | 0:00:05.455041 | 🐞 DEBUG    | pagez.core.smart_detector:test_extract_with_codepage:219 - 测试代码页 日文（Shift_JIS） 结果: 成功
+2025-06-08 23:51:04 | 0:00:05.586530 | ℹ️ INFO     | pagez.core.api:smart_extract:77 - 为 甘ふわセックスライフ.zip 自动选择的代码页: 日文（Shift_JIS） (ID: 932)
+2025-06-08 23:51:04 | 0:00:05.586837 | ℹ️ INFO     | pagez.core.api:smart_extract:117 - 执行命令: 7z x E:\2EHV\test\甘ふわセックスライフ.zip -oE:\2EHV\test\output\甘ふわセックスライフ -aoa -mcp=932 -p -y
+2025-06-08 23:51:09 | 0:00:10.461900 | ℹ️ INFO     | pagez.core.api:smart_extract:122 - 成功解压 甘ふわセックスライフ.zip 到 E:\2EHV\test\output\甘ふわセックスライフ
+2025-06-08 23:51:09 | 0:00:10.462179 | ℹ️ INFO     | pagez.core.api:test_extract_folder:248 - 
+解压测试结果汇总:
+2025-06-08 23:51:09 | 0:00:10.462344 | ℹ️ INFO     | pagez.core.api:test_extract_folder:249 - ======================================================================
+2025-06-08 23:51:09 | 0:00:10.462471 | ℹ️ INFO     | pagez.core.api:test_extract_folder:251 - 总共测试: 1 个文件
+2025-06-08 23:51:09 | 0:00:10.462596 | ℹ️ INFO     | pagez.core.api:test_extract_folder:252 - 成功解压: 1 个文件
+2025-06-08 23:51:09 | 0:00:10.462708 | ℹ️ INFO     | pagez.core.api:test_extract_folder:253 - 失败: 0 个文件
+2025-06-08 23:51:09 | 0:00:10.462800 | ℹ️ INFO     | pagez.core.api:test_extract_folder:254 - ======================================================================
+2025-06-08 23:51:09 | 0:00:10.463020 | 🐞 DEBUG    | pagez.core.smart_detector:detect_codepage_from_filename:64 - 从文件名 '甘ふわセックスライフ.zip' 检测到语言: ja
+2025-06-08 23:51:09 | 0:00:10.463074 | 🐞 DEBUG    | pagez.core.smart_detector:detect_codepage_from_filename:68 - 为文件名 '甘ふわセックスライフ.zip' 选择代码页: 日文（Shift_JIS） (ID: 932)
+2025-06-08 23:51:09 | 0:00:10.487773 | 🐞 DEBUG    | pagez.core.smart_detector:detect_codepage_from_archive_content:174 - 压缩包内容语言统计: {'zh-cn': 736, 'zh-tw': 0, 'ja': 1, 'ko': 0, 'other': 0}
+2025-06-08 23:51:09 | 0:00:10.487921 | 🐞 DEBUG    | pagez.core.smart_detector:detect_codepage_from_archive_content:179 - 压缩包 '甘ふわセックスライフ.zip' 的主要语言: zh-cn
+2025-06-08 23:51:09 | 0:00:10.488005 | 🐞 DEBUG    | pagez.core.smart_detector:detect_codepage:253 - 文件名检测的代码页: 日文（Shift_JIS） (ID: 932)
+2025-06-08 23:51:09 | 0:00:10.488047 | 🐞 DEBUG    | pagez.core.smart_detector:detect_codepage:254 - 内容检测的代码页: 简体中文（GBK） (ID: 936)
+2025-06-08 23:51:09 | 0:00:10.488260 | 🐞 DEBUG    | pagez.core.smart_detector:test_extract_with_codepage:214 - 测试代码页 日文（Shift_JIS） 的命令: 7z e E:\2EHV\test\甘ふわセックスライフ.zip -oC:\Users\30902\AppData\Local\Temp\codepage_test_mqa33d8x -aou -mcp=932 -y -i!*
+2025-06-08 23:51:14 | 0:00:15.736026 | 🐞 DEBUG    | pagez.core.smart_detector:test_extract_with_codepage:219 - 测试代码页 日文（Shift_JIS） 结果: 成功
+2025-06-08 23:51:14 | 0:00:15.873277 | ℹ️ INFO     | pagez.core.api:test_extract_folder:262 - 甘ふわセックスライフ.zip - 代码页: 日文（Shift_JIS） (ID: 932) - 成功
+2025-06-08 23:51:14 | 0:00:15.873600 | ℹ️ INFO     | __main__:main:51 - 测试完成

@@ -1,5 +1,5 @@
 [project]
-name = "smartzip"
+name = "smartz"
 version = "3.4.0"
 description = "SmartZip - 7-zip功能扩展工具的Python实现"
 readme = "README.md"

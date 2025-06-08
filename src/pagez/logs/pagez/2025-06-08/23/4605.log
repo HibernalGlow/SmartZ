@@ -1,0 +1,5 @@
+2025-06-08 23:46:05 | 0:00:00.019778 | ℹ️ INFO     | src.pagez.logger_config:setup_logger:73 - 日志系统已初始化，应用名称: pagez
+2025-06-08 23:46:05 | 0:00:00.020482 | ℹ️ INFO     | __main__:main:66 - Smart Archive Extractor v2.0.0 启动
+2025-06-08 23:46:05 | 0:00:00.020739 | ℹ️ INFO     | __main__:main:67 - 开始测试解压 --help 中的压缩包...
+2025-06-08 23:46:05 | 0:00:00.021181 | ❌ ERROR    | src.pagez.api:test_extract_folder:218 - 测试文件夹不存在: --help
+2025-06-08 23:46:05 | 0:00:00.021445 | ℹ️ INFO     | __main__:main:77 - 测试完成
