@@ -8,14 +8,10 @@ import sys
 import subprocess
 import tempfile
 import shutil
-from typing import Optional, List, Tuple, Dict, Set, Union, Any
+from typing import Optional, List, Dict, Union
 from pathlib import Path
-import logging
 
 from loguru import logger
-import os
-import sys
-from pathlib import Path
 from datetime import datetime
 
 def setup_logger(app_name="app", project_root=None, console_output=True):
@@ -654,7 +650,7 @@ def test_extract_folder(test_folder: str = r"E:\2EHV\test",
     os.makedirs(output_folder, exist_ok=True)
     
     # 获取所有压缩包文件
-    archive_extensions = ['.zip', '.rar', '.7z', '.tar', '.gz', '.bz2']
+    archive_extensions = ['.zip', '.rar', '.7z', '.tar', '.gz', '.bz2', '.cbz', '.cbr']
     archive_files = []
     
     for root, _, files in os.walk(test_folder):
