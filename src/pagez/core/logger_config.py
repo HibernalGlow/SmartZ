@@ -74,3 +74,6 @@ def setup_logger(app_name: str = "app",
     return logger, config_info
 
 
+def get_logger() -> object:
+    """获取当前配置的logger实例"""
+    return logger
