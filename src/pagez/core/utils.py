@@ -100,8 +100,7 @@ def detect_language_from_text(text: str) -> str:
     if not text:
         return "other"
     
-    # 首先使用正则表达式进行快速检测（更准确）
-    # 检查日文特有字符（平假名和片假名）
+    # 首先检查文件名中是否包含日文的平假名和片假名
     if re.search(CHARSET_RANGES["japanese"], text):
         return "ja"
     
@@ -109,8 +108,30 @@ def detect_language_from_text(text: str) -> str:
     if re.search(CHARSET_RANGES["korean"], text):
         return "ko"
     
+    # 检查是否包含可能是日文编码错误导致的特殊字符
+    from .codepage_info import POSSIBLE_JAPANESE_GARBLED
+    
+    # 计算文本中可能是日文乱码的字符比例
+    garbled_chars_count = sum(1 for char in text if char in POSSIBLE_JAPANESE_GARBLED)
+    if garbled_chars_count > 0:
+        # 如果乱码字符占比超过20%，很可能是日文文件
+        if garbled_chars_count / len(text) > 0.2:
+            logger.debug(f"检测到可能的日文乱码字符: {garbled_chars_count}/{len(text)}")
+            return "ja"
+    
     # 检查中文字符
     if re.search(CHARSET_RANGES["chinese"], text):
+        # 检查是否含有乱码特征字符范围
+        if re.search(CHARSET_RANGES["garbled_chars"], text):
+            # 如果同时包含中文和乱码特征，进行进一步分析
+            chinese_count = len(re.findall(CHARSET_RANGES["chinese"], text))
+            garbled_count = len(re.findall(CHARSET_RANGES["garbled_chars"], text))
+            
+            # 如果乱码字符比例较高，可能是日文被错误解码
+            if garbled_count > chinese_count * 0.5:
+                logger.debug(f"检测到可能的日文乱码: 中文字符={chinese_count}, 乱码字符={garbled_count}")
+                return "ja"
+        
         # 简单区分简体和繁体（不够准确，但作为备用方法）
         return "zh-cn"
     

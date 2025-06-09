@@ -158,16 +158,35 @@ class SmartCodePage:
         # 首先获取压缩包信息
         info = self.extract_archive_info(archive_path)
         if not info:
-            # 如果无法获取压缩包信息，则根据文件名判断
-            return self.detect_codepage_from_filename(os.path.basename(archive_path))
+            # 如果无法获取压缩包信息，返回默认代码页
+            logger.warning(f"无法获取压缩包信息: {archive_path}")
+            return LANG_TO_CODEPAGE["other"]
         
         # 收集所有文件名
         filenames = [file_item.get('Path', '') for file_item in info['files']]
         
-        # 统计各语言的文件数量
-        lang_counts = {"zh-cn": 0, "zh-tw": 0, "ja": 0, "ko": 0, "other": 0}
+        # 首先检查压缩包名称中是否包含日文特征
+        archive_basename = os.path.basename(archive_path)
+        archive_lang = detect_language_from_text(archive_basename)
         
+        # 如果压缩包名称是日文，增加日文的权重
+        initial_weights = {"zh-cn": 0, "zh-tw": 0, "ja": 0, "ko": 0, "other": 0}
+        if archive_lang == "ja":
+            initial_weights["ja"] = max(1, len(filenames) // 10)  # 给予一定的初始权重
+            logger.debug(f"压缩包名称 '{archive_basename}' 检测为日文，增加日文权重")
+        
+        # 统计各语言的文件数量
+        lang_counts = initial_weights.copy()
+        
+        # 检查是否有明确的日文文件扩展名
+        japanese_extensions = ['.jp', '.jpa', '.jpx', '.jpm', '.j2k']
         for filename in filenames:
+            _, ext = os.path.splitext(filename.lower())
+            if ext in japanese_extensions:
+                lang_counts["ja"] += 1
+                continue
+                
+            # 普通语言检测
             lang = detect_language_from_text(filename)
             lang_counts[lang] += 1
         
@@ -175,7 +194,17 @@ class SmartCodePage:
         
         # 选择出现次数最多的语言
         if sum(lang_counts.values()) > 0:
-            dominant_lang = max(lang_counts, key=lang_counts.get)
+            # 如果日文和其他语言的差距很小（小于10%），优先选择日文
+            if "ja" in lang_counts and lang_counts["ja"] > 0:
+                max_lang = max(lang_counts, key=lang_counts.get)
+                if max_lang != "ja" and lang_counts["ja"] >= lang_counts[max_lang] * 0.9:
+                    logger.debug(f"日文和{max_lang}的差距很小，优先选择日文")
+                    dominant_lang = "ja"
+                else:
+                    dominant_lang = max_lang
+            else:
+                dominant_lang = max(lang_counts, key=lang_counts.get)
+                
             logger.debug(f"压缩包 '{os.path.basename(archive_path)}' 的主要语言: {dominant_lang}")
             return self.get_codepage_from_language(dominant_lang)
         
@@ -232,7 +261,7 @@ class SmartCodePage:
     def detect_codepage(self, archive_path: str) -> CodePageInfo:
         """智能检测压缩包的代码页
         
-        结合文件名和内容分析，并尝试测试解压来确定最佳代码页
+        专注于压缩包内容分析，不考虑文件名和编码冲突
         
         Args:
             archive_path: 压缩包路径
@@ -244,36 +273,17 @@ class SmartCodePage:
             logger.warning(f"文件不存在: {archive_path}")
             return LANG_TO_CODEPAGE["other"]
         
-        # 1. 首先根据文件名检测
-        filename_cp = self.detect_codepage_from_filename(os.path.basename(archive_path))
-        
-        # 2. 再根据压缩包内容检测
+        # 直接使用压缩包内容检测
         content_cp = self.detect_codepage_from_archive_content(archive_path)
-        
-        logger.debug(f"文件名检测的代码页: {filename_cp}")
         logger.debug(f"内容检测的代码页: {content_cp}")
         
-        # 3. 如果两者结果不同，尝试测试解压来验证
-        if filename_cp.id != content_cp.id:
-            # 优先测试文件名检测的代码页（通常更准确）
-            if self.test_extract_with_codepage(archive_path, filename_cp):
-                return filename_cp
-            
-            # 测试内容检测的代码页
-            if self.test_extract_with_codepage(archive_path, content_cp):
-                return content_cp
-            
-            # 如果都不行，尝试其他常用代码页
-            for cp in COMMON_CODEPAGES:
-                if cp.id not in (filename_cp.id, content_cp.id):
-                    if self.test_extract_with_codepage(archive_path, cp):
-                        return cp
-        
-        # 优先使用文件名检测的结果，因为通常更准确
-        return filename_cp
+        # 不再进行编码冲突检测和测试解压
+        return content_cp
     
     def get_codepage_for_files(self, file_paths: List[str], parallel: bool = True) -> CodePageInfo:
         """为多个文件智能选择代码页
+        
+        专注于压缩包内容分析，不考虑文件名和编码冲突
         
         Args:
             file_paths: 文件路径列表
