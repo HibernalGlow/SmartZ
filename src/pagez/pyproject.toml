@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pagez"
+version = "2.0.0"
+description = "智能代码页检测和压缩包解压工具"
+authors = [
+    {name = "Smart Archive Extractor Team"}
+]
+requires-python = ">=3.8"
+dependencies = [
+    "loguru>=0.7.3",
+    "charset-normalizer>=3.4.2",
+    "langdetect>=1.0.9",
+]
+
+[project.scripts]
+pagez = "pagez.__main__:main"
+
+[tool.setuptools]
+package-dir = {"" = ".."}
+packages = ["pagez", "pagez.core", "pagez.test"] 

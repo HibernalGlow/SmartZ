@@ -1,6 +1,6 @@
 [project]
 name = "smartz"
-version = "3.4.0"
+version = "3.4.1"
 description = "SmartZip - 7-zip功能扩展工具的Python实现"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -23,14 +23,17 @@ dev = [
 
 [project.scripts]
 # smartzip = "main:main"
-pagez = "pagez.__main__:main"
+# pagez = "pagez.__main__:main"
+
+# 定义pagez作为独立包
+[tool.setuptools]
+package-dir = {"" = "src"}  # 告诉 setuptools 包位于 src 目录
+packages = ["smartz","pagez","pagez.core"]
+
 [build-system]
 requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools]
-packages = ["smartz", "pagez"]
-package-dir = {"" = "src"}
 [tool.black]
 line-length = 88
 target-version = ['py38']
