@@ -116,7 +116,7 @@ def detect_language_from_text(text: str) -> str:
     if garbled_chars_count > 0:
         # 如果乱码字符占比超过20%，很可能是日文文件
         if garbled_chars_count / len(text) > 0.2:
-            logger.debug(f"检测到可能的日文乱码字符: {garbled_chars_count}/{len(text)}")
+            # logger.debug(f"检测到可能的日文乱码字符: {garbled_chars_count}/{len(text)}")
             return "ja"
     
     # 检查中文字符
@@ -129,7 +129,7 @@ def detect_language_from_text(text: str) -> str:
             
             # 如果乱码字符比例较高，可能是日文被错误解码
             if garbled_count > chinese_count * 0.5:
-                logger.debug(f"检测到可能的日文乱码: 中文字符={chinese_count}, 乱码字符={garbled_count}")
+                # logger.debug(f"检测到可能的日文乱码: 中文字符={chinese_count}, 乱码字符={garbled_count}")
                 return "ja"
         
         # 简单区分简体和繁体（不够准确，但作为备用方法）
