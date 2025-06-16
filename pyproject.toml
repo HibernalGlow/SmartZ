@@ -11,6 +11,7 @@ dependencies = [
     "langdetect>=1.0.9",
     "charset-normalizer>=3.4.2",
     "loguru>=0.7.3",
+    "chardet>=5.0.0",
 ]
 
 [project.optional-dependencies]
