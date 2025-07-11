@@ -26,8 +26,8 @@ dev = [
 
 # 定义pagez作为独立包
 [tool.setuptools]
-package-dir = {"" = "src"}  # 告诉 setuptools 包位于 src 目录
-packages = ["smartz","pagez"]
+package-dir = {"" = "src"}
+packages = ["find:"]
 
 [project.scripts]
 # smartzip = "main:main"
