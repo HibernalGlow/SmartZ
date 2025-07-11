@@ -27,7 +27,6 @@ dev = [
 # 定义pagez作为独立包
 [tool.setuptools]
 package-dir = {"" = "src"}
-packages = ["find:"]
 
 [project.scripts]
 # smartzip = "main:main"
